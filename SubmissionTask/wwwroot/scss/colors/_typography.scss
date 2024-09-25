@@ -1,0 +1,37 @@
+@include heading-colors( --color-primary, --color-primary, --color-secondary, --color-primary, --color-primary, --color-secondary );
+
+@include theme-headings( 'primary', --color-light, --color-light, --color-secondary, --color-light, --color-light, --color-secondary );
+
+@include theme-headings( 'secondary', --color-primary, --color-primary, --color-light, --color-primary, --color-primary, --color-light );
+
+span {
+    color: var(--color-secondary);
+}
+
+.dark{
+    color: var(--color-dark) !important;
+}
+
+.primary {
+    color: var(--color-primary) !important;
+}
+
+.primary-light {
+    color: var(--color-primary-light) !important;
+}
+
+.primary-dark {
+    color: var(--color-primary-dark) !important;
+}
+
+.secondary {
+    color: var(--color-secondary) !important;
+}
+
+.accent {
+    color: var(--color-accent) !important;
+}
+
+.gray {
+    color: var(--color-accent) !important;
+}

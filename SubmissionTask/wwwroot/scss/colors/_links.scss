@@ -1,0 +1,3 @@
+@include link-colors( --color-secondary, --color-primary );
+
+@include theme-links( 'primary', --color-light, --color-secondary );

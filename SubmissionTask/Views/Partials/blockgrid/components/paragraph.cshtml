@@ -1,0 +1,20 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem>;
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.PropertyEditors.ValueConverters;
+
+@{
+    var paragraphContent = Model?.Content.Value<string>("paragraphContent");
+    var colorLabel = Model?.Content.Value<ColorPickerValueConverter.PickedColor>("colorPicker")?.Label.ToLower() ?? null;
+    var bold = Model!.Content.Value<bool>("boldToggle");
+    var smaller = (Model!.Content.Value<bool>("smallerToggle")) ? "smaller-p" : "";
+}
+
+@if(!string.IsNullOrEmpty(paragraphContent)){
+    @if(bold){
+        <p class="@colorLabel @smaller"><strong>@paragraphContent</strong></p>
+    }
+    else{
+        <p class="@colorLabel @smaller">@paragraphContent</p>
+    }
+}

@@ -1,0 +1,37 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem>;
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.PropertyEditors.ValueConverters;
+@{
+    var sectionTitle = Model?.Content.Value<string>("sectionTitle") ?? "";
+    var sectionId = sectionTitle?.ToString().ToLower().Trim().Replace(" ", "-");
+
+    var spacingTopClass = (Model!.Content.Value<bool>("addSpaceToTop")) ? "spacing-top" : "";
+    var spacingBottomClass = (Model!.Content.Value<bool>("addSpaceToBottom")) ? "spacing-bottom" : "";
+    var centerContentClass = (Model!.Content.Value<bool>("centerContentOnPage")) ? "center" : "";
+    
+    var backgroundLength = Model?.Content.Value<int>("colorLength");
+    var selectedColor = (Model?.Content.Value<string>("sectionBackgroundColor")) ?? "";
+
+    var sectionBackgroundColorLabel = Model?.Content?.Value<ColorPickerValueConverter.PickedColor>("sectionBackgroundColor")?.Label.ToLower() ?? null;
+    var backgroundColorClass = (!string.IsNullOrEmpty(sectionBackgroundColorLabel) && sectionBackgroundColorLabel != "none") ? $"bg-{sectionBackgroundColorLabel}" : "";
+
+    var sectionBackgroundImage = Model?.Content.Value<IPublishedContent>("sectionBackgroundImage")?.Url() ?? null;
+    var backgroundImageHeight = Model?.Content.Value<int>("backgroundImageHeight");
+    
+    var gradientStyle = "";
+    if(backgroundLength > 0 && !string.IsNullOrEmpty(selectedColor)){
+        gradientStyle = $"background: linear-gradient(to bottom, {selectedColor} {backgroundLength}%, transparent {backgroundLength}%)";
+    }
+}
+<section id="@sectionId" class="@spacingTopClass @spacingBottomClass @backgroundColorClass" style="@gradientStyle">
+
+    @if(!string.IsNullOrEmpty(sectionBackgroundImage)){
+        if(backgroundImageHeight > 0){
+            <img class="background-image" src="@sectionBackgroundImage" alt="@sectionTitle background-image" style="height: @backgroundImageHeight%">
+        }
+        <img class="background-image" src="@sectionBackgroundImage" alt="@sectionTitle background-image">
+    }
+
+    @await Html.GetBlockGridItemAreasHtmlAsync(Model)
+</section>

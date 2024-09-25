@@ -1,0 +1,20 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem>;
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+
+@{
+    var selectedImage = Model?.Content.Value<IPublishedContent>("pickedImage")?.Url() ?? null;
+    var imageDescription = Model?.Content.Value<string>("imageDescription") ?? "";
+    var name = Model?.Content.Value<string>("pickedName") ?? "";
+    var title = Model?.Content.Value<string>("pickedTitle") ?? "";
+}
+
+@if(!string.IsNullOrEmpty(selectedImage)){
+    <div class="presentation-box">
+        <img src="@selectedImage" alt="@imageDescription" />
+        <div class="presentation-text-box">
+            <h4>@name</h4>
+            <p>@title</p>
+        </div>
+    </div>
+}

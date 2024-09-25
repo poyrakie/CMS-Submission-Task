@@ -1,0 +1,47 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@using Umbraco.Cms.Core.PropertyEditors.ValueConverters;
+@inject Umbraco.Cms.Web.Common.UmbracoHelper UmbracoHelper
+@{
+
+    var rootContents = UmbracoHelper.ContentAtRoot();
+    var settings = rootContents?.FirstOrDefault(x => x.ContentType.Alias == "settingsPage") ?? null;
+    var officeLocation = settings?.Value<string>("officeLocation") ?? "";
+    var officePhoneNumber = settings?.Value<string>("officePhoneNumber") ?? "";
+    var officeEmailAddress = settings?.Value<string>("officeEmailAddress") ?? "";
+
+    var img = Umbraco.Media(Guid.Parse("19d43b8d-f176-4016-a488-44b367cbb80a")) as Image;
+    var backgroundImg = Umbraco.Media(Guid.Parse("6741e646-ec54-4970-a7c2-9f9f1f9dcb43")) as Image;
+}
+
+<section class="generic-showcase-section bg-gray">
+    <div class="container">
+        <img class="background-image" src="@backgroundImg.Url()" alt="background-image">
+        
+        <img class="person-image" src="@img.Url()" alt="Contact us image" >
+        <div class="text-box">
+            <h2>Let us know about your next project</h2>
+            <div class="address-box">
+                <i class="icon fa-thin fa-location-dot"></i>
+                <div class="address-box-text">
+                    <h5>Office location</h5>
+                    <p>@officeLocation</p>
+                </div>
+            </div>
+            <div class="address-box">
+                <i class="fa-regular fa-phone-flip"></i>
+                <div class="address-box-text">
+                    <h5>Phone number</h5>
+                    <p>@officePhoneNumber</p>
+                </div>
+            </div>
+            <div class="address-box">
+                <i class="fa-light fa-envelope"></i>
+                <div class="address-box-text">
+                    <h5>E-mail address</h5>
+                    <p>@officeEmailAddress</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

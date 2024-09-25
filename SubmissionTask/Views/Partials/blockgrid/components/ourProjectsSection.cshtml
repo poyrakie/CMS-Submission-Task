@@ -1,0 +1,38 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem>;
+@using Umbraco.Cms.Core.PropertyEditors.ValueConverters;
+@inject Umbraco.Cms.Web.Common.UmbracoHelper UmbracoHelper
+@{
+	var selection = Umbraco.Content(Guid.Parse("ae3768c3-f629-48f1-b000-62ec88e76632"))
+    .ChildrenOfType("projectItemTemplate")
+    .Where(x => x.IsVisible())
+    .Take(4)
+    .ToList();
+}
+<section id="our-projects-section">
+    <div class="container">
+        <h6>OUR PROJECTS</h6>
+        <h2>Recent projects</h2>
+    </div>
+    <div class="content">
+        @for (int i = 0; i < selection.Count; i++){
+            var item = selection[i];
+            var image = item?.Value<IPublishedContent>("thumbnailImage")?.Url() ?? "";
+            var title = item?.Value<string>("pageTitle") ?? "Untitled Project";
+
+            <a href="@item.Url()">
+                <img src="@image" alt="@title image">
+                <div class="text-box bg-primary">
+                    <h5>
+                        @title
+                    </h5>
+                    <p>
+                        Financial Services
+                    </p>
+                </div>
+                <h1><i class="fa-solid fa-angle-right"></i></h1>
+            </a>
+        }
+
+    </div>
+</section>

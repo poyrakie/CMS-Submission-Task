@@ -1,0 +1,50 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.PropertyEditors.ValueConverters;
+@{
+    var boxes = Model.Content.Value<IEnumerable<Umbraco.Cms.Core.Models.Blocks.BlockListItem>>("presentationBoxes")?.ToList();
+    var h6 = Model?.Content.Value<string>("heading6");
+    var h2 = Model?.Content.Value<string>("heading2");
+}
+
+@if(boxes != null){
+    <section id="about-our-team">
+        <div class="container center-content">
+            <h6>@h6</h6>
+            <h2>@h2</h2>
+            <div class="presentation-row">
+                @for (int i = 4; i < 8 && i < boxes.Count; i++){
+                    var box = boxes[i];
+                    var pickedImage = box?.Content.Value<IPublishedContent>("pickedImage").Url();
+                    var pickedName = box?.Content.Value<string>("pickedName") ?? string.Empty;
+                    var pickedTitle = box?.Content.Value<string>("pickedTitle") ?? string.Empty;
+
+                        <div class="presentation-box">
+                            <img src="@pickedImage" alt="@pickedName image" />
+                            <div class="presentation-text-box">
+                                <h4>@pickedName</h4>
+                                <p>@pickedTitle</p>
+                            </div>
+                        </div>
+                }
+            </div>
+            <div class="presentation-row">
+                @for (int i = 0; i < 4 && i < boxes.Count; i++){
+                    var box = boxes[i];
+                    var pickedImage = box?.Content.Value<IPublishedContent>("pickedImage").Url();
+                    var pickedName = box?.Content.Value<string>("pickedName") ?? string.Empty;
+                    var pickedTitle = box?.Content.Value<string>("pickedTitle") ?? string.Empty;
+
+                        <div class="presentation-box">
+                            <img src="@pickedImage" alt="@pickedName image" />
+                            <div class="presentation-text-box">
+                                <h4>@pickedName</h4>
+                                <p>@pickedTitle</p>
+                            </div>
+                        </div>
+                }
+            </div>
+        </div>
+    </section>
+}

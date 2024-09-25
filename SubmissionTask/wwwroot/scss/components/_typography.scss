@@ -1,0 +1,43 @@
+p {
+    font-size: 1em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    @include heading;
+    line-height: 1.4;
+}
+
+h1 {
+    font-size: 70px;
+}
+
+h2 {
+    font-size: 40px;
+}
+
+h3 {
+    font-size: 30px;
+}
+
+h4 {
+    font-size: 22px;
+}
+
+h5 {
+    font-size: 18px;
+}
+
+h6 {
+    font-size: 14px;
+}
+blockquote {
+    color: var(--color-dark);
+    font-size: 1.6em;
+    font-weight: 300;
+    text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
+    margin-bottom: 1em;
+}
+
+.smaller-p{
+    font-size: 0.8em;
+}

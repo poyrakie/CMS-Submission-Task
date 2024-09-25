@@ -1,0 +1,12 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem>;
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.PropertyEditors.ValueConverters;
+@{
+    var numberOfStars = Model?.Content.Value<int>("numberOfStars");
+}
+<p>
+    @for (int i = 0; i < numberOfStars; i++){
+        <i class="fa-sharp fa-solid fa-star primary-dark"></i>
+    }
+</p>

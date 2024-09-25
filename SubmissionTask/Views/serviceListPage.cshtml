@@ -1,0 +1,45 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@{
+	Layout = "mainLayout.cshtml";
+    ViewBag.Title = Model?.Value("pageTitle") ?? null;
+
+	var selection = Umbraco.Content(Guid.Parse("4ad63ffd-2353-4cd2-9a14-3627f5cf84a3"))
+    .ChildrenOfType("serviceItemTemplate")
+    .Where(x => x.IsVisible());
+
+    var itemsPerPage = 6;
+
+    if(!int.TryParse(Context.Request.Query["page"], out int currentPage))
+        currentPage = 1;
+
+    var totalItems = selection?.Count() ?? 0;
+    var pagedItems = selection?.Skip((currentPage - 1) * itemsPerPage).Take(itemsPerPage);
+}
+<section id="our-services" class="spacing-top spacing-bottom">
+    <div class="container center-content">
+        @if (!string.IsNullOrEmpty(Model.Value("customHeadline").ToString())){
+            <div class="headline">
+                <h2 class="title">@Model.Value("customHeadline")</h2>
+            </div>
+        }
+        <div class="services">
+            @if(pagedItems != null){
+                @foreach(var item in pagedItems){
+                    var image = item?.Value<IPublishedContent>("thumbnailImage")?.Url() ?? "";
+                    var preamble = item?.Value<string>("preamble") ?? "";
+
+                    <a href="@item.Url()">
+                        <div class="item">
+                            <h4>@item.Name()</h4>
+                            <img src="@image" alt="@item.Name()">
+                            <p>Dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non </p>
+                        </div>
+                    </a>
+                }
+            }
+
+        </div>
+    </div>
+</section>
+@await Html.PartialAsync("partials/static/staticContactUs")

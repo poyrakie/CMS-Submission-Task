@@ -1,0 +1,83 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage;
+@using Umbraco.Cms.Core.PropertyEditors.ValueConverters;
+@inject Umbraco.Cms.Web.Common.UmbracoHelper UmbracoHelper
+@{
+	Layout = "mainLayout.cshtml";
+    ViewBag.Title = Model?.Name ?? null;
+    var selection = Umbraco.Content(Guid.Parse("ae3768c3-f629-48f1-b000-62ec88e76632"))
+    .ChildrenOfType("projectItemTemplate")
+    .Where(x => x.IsVisible());
+    var img = Umbraco.Media(Guid.Parse("240ac2ae-0c8c-449e-bb81-4f7cd2ff9e6b")) as Image;
+    var formBackgroundImg = Umbraco.Media(Guid.Parse("e8ba53ff-9968-477d-b321-c78dbbd58588")) as Image;
+    var date = Model?.Value<DateTime>("pickedDate"); 
+    var formattedDate = date.Value.ToString("MMMM dd, yyyy");
+    bool isFirst = true;
+}
+<section class="project-details spacing-top spacing-bottom">
+    <div class="container">
+        <div class="detail-content">
+            <p class="p-date"><i class="fa-light fa-calendar-days"></i> @formattedDate<p>
+            @Model.Value("pageContent")
+            <div class="details-tags">
+                <p><strong>Tags:</strong></p>
+                <p class="p-tag">Business</p>
+                <p class="p-tag">Consulting</p>
+                <p class="p-tag">Onatrix</p>
+            </div>
+        </div>
+
+        <aside>
+            <div class="recent-projects">
+                <h4>Recent projects</h4>
+                @foreach (var item in selection){
+                    var image = item?.Value<IPublishedContent>("thumbnailImage")?.Url() ?? "";
+                    var title = item?.Value<string>("pageTitle");
+                    date = item?.Value<DateTime>("pickedDate");
+                    formattedDate = date.Value.ToString("MMMM dd, yyyy");
+                    var borderTop = isFirst ? "" : "border-top";
+
+                    <a href="@item.Url()" class="@borderTop">
+                        <img src="@image">
+                        <div class="item-text-box">
+                            <h5>@title</h5>
+                            <p class="p-date"><i class="fa-light fa-calendar-days"></i> @formattedDate<p>
+                        </div>
+                    </a>
+                    isFirst = false;
+                }
+            </div>
+            <h4>Tags</h4>
+            <div class="tag-row">
+                <p class="p-tag">Report</p>
+                <p class="p-tag">Business plans</p>
+            </div>
+            <div class="tag-row">
+                <p class="p-tag">Insights</p>
+                <p class="p-tag">Business</p>
+                <p class="p-tag">App</p>
+            </div>
+            <div class="tag-row">
+                <p class="p-tag">Project</p>
+                <p class="p-tag">Finance</p>
+            </div>
+            <div class="tag-row">
+                <p class="p-tag">Pricing</p>
+            </div>
+            <div class="aside-support-form">
+                <img src="@formBackgroundImg.Url()"/>
+                <h4 class="gray"> How can we help you? </h4>
+                <p class="gray"> online support 24/7, we are here to help you </p>
+                <form>
+                    <div class="form-input">
+                        <input placeholder="E-mail address"/>
+                        <button>
+                            <i class="fa-light fa-envelope"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </aside>
+    </div>
+</section>
+@await Html.PartialAsync("partials/static/staticContactUs")

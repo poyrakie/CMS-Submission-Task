@@ -1,0 +1,33 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@using Umbraco.Cms.Core.Routing
+@using Umbraco.Extensions
+
+@inject IPublishedUrlProvider PublishedUrlProvider
+
+@{ 
+    var selection = Model.Ancestors().ToArray(); 
+    var homePageDisplayName = "Home";
+    var isFirstItem = true;
+    var backgroundImg = Umbraco.Media(Guid.Parse("d2bfad55-a80e-4523-955d-02cca3e21fed")) as Image;
+}
+
+<section class="page-title">
+    <img class="background-image" src="@backgroundImg.Url()" alt="">
+    <div class="container center-content">
+        <h2>@ViewBag.Title</h2>
+
+        @if (selection?.Length > 0){
+            <ul class="breadcrumb">
+                @foreach(var item in selection.OrderBy(x => x.Level)){
+                    var displayName = isFirstItem ? homePageDisplayName : item.Name;
+                    <li><a href="@item.Url(PublishedUrlProvider)">@displayName</a></li>
+                    <p>></p>
+                    isFirstItem = false;
+
+                }
+
+                <li class="active"> @Model.Name</li>
+            </ul>
+        }
+    </div>
+</section>

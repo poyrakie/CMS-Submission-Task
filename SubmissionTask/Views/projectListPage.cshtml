@@ -1,0 +1,71 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@using Umbraco.Cms.Core.PropertyEditors.ValueConverters;
+@inject Umbraco.Cms.Web.Common.UmbracoHelper UmbracoHelper
+@{
+    Layout = "mainLayout.cshtml";
+	var selection = Umbraco.Content(Guid.Parse("ae3768c3-f629-48f1-b000-62ec88e76632"))
+    .ChildrenOfType("projectItemTemplate")
+    .Where(x => x.IsVisible());
+    var img = Umbraco.Media(Guid.Parse("240ac2ae-0c8c-449e-bb81-4f7cd2ff9e6b")) as Image;
+    var formBackgroundImg = Umbraco.Media(Guid.Parse("e8ba53ff-9968-477d-b321-c78dbbd58588")) as Image;
+    ViewBag.Title = Model?.Name ?? null;
+    bool isFirst = true;
+}
+<section id="our-projects" class="spacing-top spacing-bottom">
+    <div class="container">
+        <div class="project-content">
+            @foreach (var item in selection){
+                var image = item?.Value<IPublishedContent>("thumbnailImage")?.Url() ?? "";
+                var title = item?.Value<string>("pageTitle");
+                var date = item?.Value<DateTime>("pickedDate");
+                var formattedDate = date.Value.ToString("MMMM dd, yyyy");
+                var borderTop = isFirst ? "" : "border-top";
+
+                <a href="@item.Url()" class="@borderTop">
+                    <img src="@image">
+                    <div class="item-text-box">
+                        <h4>@title</h4>
+                        <p class="p-date"><i class="fa-light fa-calendar-days"></i> @formattedDate<p>
+                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium. Sed ut perspiciatis unde omnis iste natus error.</p>
+                        <p class="read-more"><strong>Read more</strong> <i class="fa-light fa-arrow-right"></i></p>
+                    </div>
+                </a>
+                isFirst = false;
+            }
+        </div>
+        <aside>
+            <h4>Tags</h4>
+            <div class="tag-row">
+                <p class="p-tag">Report</p>
+                <p class="p-tag">Business plans</p>
+            </div>
+            <div class="tag-row">
+                <p class="p-tag">Insights</p>
+                <p class="p-tag">Business</p>
+                <p class="p-tag">App</p>
+            </div>
+            <div class="tag-row">
+                <p class="p-tag">Project</p>
+                <p class="p-tag">Finance</p>
+            </div>
+            <div class="tag-row">
+                <p class="p-tag">Pricing</p>
+            </div>
+            <div class="aside-support-form">
+                <img src="@formBackgroundImg.Url()"/>
+                <h4 class="gray"> How can we help you? </h4>
+                <p class="gray"> online support 24/7, we are here to help you </p>
+                <form>
+                    <div class="form-input">
+                        <input placeholder="E-mail address"/>
+                        <button>
+                            <i class="fa-light fa-envelope"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </aside>
+    </div>
+</section>
+@await Html.PartialAsync("partials/static/staticContactUs")
