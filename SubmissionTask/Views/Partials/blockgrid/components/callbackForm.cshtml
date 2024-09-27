@@ -3,30 +3,57 @@
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
 @using Umbraco.Cms.Core.PropertyEditors.ValueConverters;
 
+@{
+    bool.TryParse(TempData["error_name"]?.ToString()!, out bool error_name);
+    bool.TryParse(TempData["error_phone"]?.ToString()!, out bool error_phone);
+    bool.TryParse(TempData["error_email"]?.ToString()!, out bool error_email);
+}
+
 <div class="form-box">
     <div class="bg-primary">
         <h3>Request a call back</h3>
     </div>
     <p>Dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur excepteur sint occaecat</p>
-    @using (Html.BeginUmbracoForm("HandleSubmit", "ContactSurface", FormMethod.Post)){
-        <div class="inputbox">
-            <input type="text" placeholder="Name">
-        </div>
-        <div class="inputbox">
-            <input type="email" placeholder="Email Address">
-        </div>
-        <div class="inputbox">
-            <input type="text" placeholder="Phone">
-        </div>
-        <div class="inputbox">
-            <label for="section"></label>
-            <select name="select-section" id="select-section">
-                <option value="FinancialConsulting">Financial consulting</option>
-                <option value="Support">Support</option>
-                <option value="Other">Other</option>
-            </select>
-        </div>
-        <a class="btn-accent">Submit</a>
+    @if (TempData["success"] != null && !string.IsNullOrEmpty(TempData["success"].ToString()))
+    {
+        <div class="success-message">@TempData["success"]</div>
     }
+    else
+    {
+        @using (Html.BeginUmbracoForm("HandleSubmit", "ContactSurface", FormMethod.Post))
+        {
+            <div class="inputbox">
+                <input id="name" name="name" type="text" placeholder="Name" value="@TempData["name"]">
+                @if (error_name)
+                {
+                    <span class="form-input-error form-invalid-input">You must enter your name</span>
+                }
+            </div>
+            <div class="inputbox">
+                <input id="email" name="email" type="text" placeholder="Email Address" value="@TempData["email"]">
+                @if (error_email)
+                {
+                    <span class="form-input-error form-invalid-input">You must enter your email</span>
+                }
+            </div>
+            <div class="inputbox">
+                <input id="phone" name="phone" type="text" placeholder="Phone" value="@TempData["phone"]">
+                @if (error_phone)
+                {
+                    <span class="form-input-error form-invalid-input">You must enter your phone</span>
+                }
+            </div>
+            <div class="inputbox">
+                <label for="section"></label>
+                <select id="dropdown" name="dropdown" id="select-section">
+                    <option value="FinancialConsulting">Financial consulting</option>
+                    <option value="Support">Support</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            <button type="submit" class="form-button btn-accent btn">Submit</button>
+        }
+    }
+
 
 </div>

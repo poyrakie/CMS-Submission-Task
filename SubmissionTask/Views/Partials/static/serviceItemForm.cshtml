@@ -21,7 +21,7 @@
             }
             else
             {
-                @using (Html.BeginUmbracoForm("HandleSubmit", "ContactSurface", FormMethod.Post))
+                @using (Html.BeginUmbracoForm("HandleSubmit", "QuestionSurface", FormMethod.Post))
                 {
 
                     <div class="form-input-groups">
@@ -45,7 +45,7 @@
 
                         <div class="form-input-group">
                             
-                            <textarea id="question" name="question" placeholder="Question" class="form-textarea" value="@TempData["question"]"></textarea>
+                            <textarea id="question" name="question" placeholder="Question" class="form-textarea" >@TempData["question"]</textarea>
                             @if (error_question)
                             {
                                 <span class="form-input-error form-invalid-input">You must enter your question</span>
