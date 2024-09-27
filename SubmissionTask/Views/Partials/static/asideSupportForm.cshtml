@@ -1,0 +1,21 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage;
+@using Umbraco.Cms.Core.PropertyEditors.ValueConverters;
+@inject Umbraco.Cms.Web.Common.UmbracoHelper UmbracoHelper
+
+@{
+    var formBackgroundImg = Umbraco.Media(Guid.Parse("e8ba53ff-9968-477d-b321-c78dbbd58588")) as Image;
+}
+<div class="aside-support-form">
+    <img src="@formBackgroundImg.Url()"/>
+    <h4 class="gray"> How can we help you? </h4>
+    <p class="gray"> online support 24/7, we are here to help you </p>
+    <form>
+        <div class="form-input">
+            <input placeholder="E-mail address"/>
+            <button>
+                <i class="fa-light fa-envelope"></i>
+            </button>
+        </div>
+    </form>
+</div>

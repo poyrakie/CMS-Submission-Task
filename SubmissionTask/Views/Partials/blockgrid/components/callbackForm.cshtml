@@ -1,0 +1,32 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.PropertyEditors.ValueConverters;
+
+<div class="form-box">
+    <div class="bg-primary">
+        <h3>Request a call back</h3>
+    </div>
+    <p>Dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur excepteur sint occaecat</p>
+    @using (Html.BeginUmbracoForm("HandleSubmit", "ContactSurface", FormMethod.Post)){
+        <div class="inputbox">
+            <input type="text" placeholder="Name">
+        </div>
+        <div class="inputbox">
+            <input type="email" placeholder="Email Address">
+        </div>
+        <div class="inputbox">
+            <input type="text" placeholder="Phone">
+        </div>
+        <div class="inputbox">
+            <label for="section"></label>
+            <select name="select-section" id="select-section">
+                <option value="FinancialConsulting">Financial consulting</option>
+                <option value="Support">Support</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+        <a class="btn-accent">Submit</a>
+    }
+
+</div>

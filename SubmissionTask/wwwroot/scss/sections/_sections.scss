@@ -276,6 +276,107 @@ header {
     }
 }
 
+#contact-us {
+    .big-form {
+        background-color: white;
+        box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
+        margin-top: 30dvh;
+
+        .text {
+            max-width: 43%;
+            margin: auto;
+            padding-top: 10dvh;
+
+            p {
+                margin-bottom: 2em;
+                margin-top: 3em;
+            }
+        }
+
+        .form-items {
+            margin: 0 5em;
+
+            .form-input-groups {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 1em;
+
+                .form-input-group {
+                    width: 100%;
+                    border: 1px solid var(--color-border-light);
+                    border-radius: 3px;
+                    text-align: start;
+                    padding: 0 0.5em;
+
+                    input, select {
+                        padding: 0.5em;
+                        width: 100%;
+                        border: none;
+                    }
+                }
+            }
+
+            .btn-primary {
+                margin: 1em auto 5em;
+            }
+        }
+    }
+}
+#service-item-form {
+    justify-content: start;
+    align-items: start;
+    text-align: start;
+
+
+    .big-form {
+        justify-content: start;
+        align-items: start;
+        text-align: start;
+
+        .text {
+            padding-top: 10dvh;
+
+            p {
+                margin-bottom: 2em;
+                margin-top: 3em;
+            }
+        }
+
+        .form-items {
+
+
+            .form-input-groups {
+                display: flex;
+                flex-direction: column;
+                gap: 1em;
+
+                .form-input-horizontal-group{
+                    display: flex;
+                }
+                .form-input-group {
+                    width: 100%;
+                    border: 1px solid var(--color-border-light);
+                    border-radius: 3px;
+                    text-align: start;
+                    padding: 0 0.5em;
+
+                    input, textarea {
+                        padding: 1em;
+                        width: 100%;
+                        border: none;
+                    }
+                    textarea{
+                        padding-bottom: 5em;
+                    }
+                }
+            }
+
+            .btn-primary {
+                margin: 1em auto 5em;
+            }
+        }
+    }
+}
 .slides{
     display: flex;
     justify-content: space-evenly;

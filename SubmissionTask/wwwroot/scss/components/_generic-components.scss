@@ -377,6 +377,53 @@
         }
     }
 }
+.form-box {
+    @include xl {
+        position: absolute;
+        top: -15em;
+        right: -5em;
+        max-width: 40em;
+        background-color: white;
+    }
+
+    box-shadow: 0 0 1.5em 0.5em rgba(0, 0, 0, 0.1);
+
+    .bg-primary {
+        padding: 1.5em;
+    }
+
+    p {
+        padding: 1.5em;
+    }
+
+    form {
+        padding: 1.5em;
+
+        .inputbox {
+            border: 1px solid var(--color-border-dark-transparent);
+            border-radius: 10px;
+            padding: 0.5em 1em;
+            margin-bottom: 2em;
+
+            input {
+                border: none;
+                width: 100%;
+                padding: 0.5em 0;
+            }
+
+            select {
+                border: none;
+                background: transparent;
+                width: 100%;
+            }
+        }
+
+        .btn-accent {
+            display: block;
+            text-align: center;
+        }
+    }
+}
 
 @keyframes sizeAnimation {
     0% {
