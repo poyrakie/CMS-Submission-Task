@@ -34,7 +34,5 @@
     <RazorCompileOnPublish>false</RazorCompileOnPublish>
   </PropertyGroup>
 
-    <PropertyGroup>
-	    <CopyRefAssembliesToPublishDirectory>true</CopyRefAssembliesToPublishDirectory>
-    </PropertyGroup>
+
 </Project>
